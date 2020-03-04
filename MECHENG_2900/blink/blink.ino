@@ -5,7 +5,7 @@
 /*
  * Lecture 1
  * Purpose: Blink an LED light in differing time intervals.
-*
+*/
 
 int ledPin = 13;
 
