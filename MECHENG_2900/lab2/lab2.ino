@@ -1,0 +1,25 @@
+// Project: Lab 2
+// Created by: Michael Napoli
+// Created on: 3/3/2020
+
+// analog pin
+const int pin_a1 = 1;
+const int pin_pwm = 6;
+int val = 0;
+
+void setup() {
+  pinMode(pin_a1, INPUT);
+  pinMode(pin_pwm, OUTPUT);
+  
+  Serial.begin(9600);
+}
+
+void loop() {
+  val = analogRead(pin_a1);
+  val = map(val, 0, 1023, 0, 255);
+  
+  analogWrite(pin_pwm, val);
+
+  delay(100);
+  Serial.println(val);
+}
