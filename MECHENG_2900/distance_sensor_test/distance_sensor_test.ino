@@ -8,8 +8,8 @@
 
 int distance(0);
 int dist_t(0);
-const int dist_out(1);
-const int dist_in(3);
+const int dist_out(5);
+const int dist_in(7);
 
 const int speed_sound(340);  // in m/s
 
@@ -22,11 +22,9 @@ void setup() {
 
 void loop() {
   digitalWrite(dist_out, HIGH);
-  
-  while (digitalRead(dist_in) == LOW) {}
   dist_t = micros();
   
-  while (digitalRead(dist_in) == HIGH) {}
+  while(digitalRead(dist_in) == LOW) {}
   dist_t = micros() - dist_t;
   
   distance = (dist_t * speed_sound) / 2;
