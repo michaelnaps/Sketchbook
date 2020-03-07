@@ -22,9 +22,11 @@ void setup() {
 
 void loop() {
   digitalWrite(dist_out, HIGH);
+  
+  while (digitalRead(dist_in) == LOW) {}
   dist_t = micros();
   
-  while (digitalRead(dist_in) == LOW) { }
+  while (digitalRead(dist_in) == HIGH) {}
   dist_t = micros() - dist_t;
   
   distance = (dist_t * speed_sound) / 2;
@@ -33,4 +35,6 @@ void loop() {
 
   digitalWrite(dist_in, LOW);
   digitalWrite(dist_out, LOW);
+  
+  delay(500);
 }
