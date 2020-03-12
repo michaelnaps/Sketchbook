@@ -14,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  // read value from potentiometer
+  // read value from potentiometer and map to 0-255 range
   val = analogRead(pin_a1);
   val = map(val, 0, 1023, 0, 255);
   
