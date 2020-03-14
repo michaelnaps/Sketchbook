@@ -21,6 +21,7 @@ void setup()
 
 void loop()
 {
+  /*
   for (int i(0); i < 255; ++i) {
     analogWrite(motor_left, i);
     analogWrite(motor_right, i);
@@ -32,4 +33,5 @@ void loop()
     analogWrite(motor_right, i);
     delay(100);
   }
+  */
 }
