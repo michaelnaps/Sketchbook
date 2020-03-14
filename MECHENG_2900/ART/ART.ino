@@ -7,19 +7,29 @@
  * Purpose: Main execution file for the A.R.T. decision making.
 */
 
-const int trigPin(5);
-const int echoPin(7);
+const int trigPin(2);
+const int echoPin(4);
+
+const int motor_left(5);  // pwm pin
+const int motor_right(10);  // pwm pin
 
 void setup()
 {
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  
-  Serial.begin(9600);
+  pinMode(motor_left, OUTPUT);
+  pinMode(motor_right, OUTPUT);
 }
 
 void loop()
 {
-  Serial.println(distance(trigPin, echoPin));
-  delay(500);
+  for (int i(0); i < 255; ++i) {
+    analogWrite(motor_left, i);
+    analogWrite(motor_right, i);
+    delay(100);
+  }
+
+  for (int i(255); i > -1; --i) {
+    analogWrite(motor_left, i);
+    analogWrite(motor_right, i);
+    delay(100);
+  }
 }
