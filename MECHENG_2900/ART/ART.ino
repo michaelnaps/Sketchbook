@@ -10,8 +10,8 @@
 const int trigPin(2);
 const int echoPin(4);
 
-const int motor_left(5);  // pwm pin
-const int motor_right(10);  // pwm pin
+const int motor_left(3);  // pwm pin
+const int motor_right(6);  // pwm pin
 
 void setup()
 {
@@ -21,17 +21,14 @@ void setup()
 
 void loop()
 {
-  /*
-  for (int i(0); i < 255; ++i) {
+  for (int i(50); i < 255; ++i) {
     analogWrite(motor_left, i);
     analogWrite(motor_right, i);
     delay(100);
   }
-
-  for (int i(255); i > -1; --i) {
-    analogWrite(motor_left, i);
-    analogWrite(motor_right, i);
-    delay(100);
-  }
-  */
+  
+  digitalWrite(motor_left, LOW);
+  digitalWrite(motor_right, LOW);
+  
+  delay(5000);
 }
