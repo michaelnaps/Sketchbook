@@ -10,7 +10,7 @@
  *  Problem 1:
  *    // where 'val' is the desired brightness
  *    // and is within the boundaries 0-255
- *    digitalWrite(10, val);  // pin 10
+ *    analogWrite(10, val);  // pin 10
 */
 
 // in-lab variables

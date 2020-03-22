@@ -15,7 +15,7 @@
  *  intput: 'val' - distance value
  *    'period' - length of time of red LED blink if needed
  *  output: void
- */
+*/
 
 void dist_lights(const int val, const int period) {
   if (val > 10 && val <= 20) {
