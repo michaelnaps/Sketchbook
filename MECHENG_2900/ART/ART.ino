@@ -21,11 +21,10 @@ void setup()
 
 void loop()
 {
-  for (int i(50); i < 255; ++i) {
-    analogWrite(motor_left, i);
-    analogWrite(motor_right, i);
-    delay(100);
-  }
+  analogWrite(motor_left, map(4, 0, 5, 0 ,255));
+  analogWrite(motor_right, map(3.3, 0, 5, 0, 255));
+
+  delay(6000);
   
   digitalWrite(motor_left, LOW);
   digitalWrite(motor_right, LOW);
