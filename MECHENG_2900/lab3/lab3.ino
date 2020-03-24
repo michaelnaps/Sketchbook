@@ -4,7 +4,8 @@
 // Last modified on:
 
 /*
- *  Purpose:
+ *  Purpose: ME 2900 - Lab 3 - Air Motor
+ *    Program written to control and evaluate an air motor.
 */
 
 const int opt_sensor = A2;  // pin for optical sensor
@@ -16,7 +17,8 @@ int previous = 6;
 int current = 1;
 
 // for the RPM calculation
-float time(0);
+float init_t = 0;
+float fin_t = 0;  // initialize to 0
 
 // HELPER FUNCTIONS:
 
@@ -41,7 +43,7 @@ void deactivate(const int& cyl) {
 }
 
 float calcRPM(const int& millisec) {
-  return ((2 * M_PI) / ((float)millisec / (60000)));  // return RPM
+  return (1 / ((float)millisec / (60000)));  // return RPM
 }
 
 // MAIN EXECUTION FUNCTIONS
@@ -66,6 +68,18 @@ void setup() {
 }
 
 void loop() {
+  // if a rotation is completed (current cylinder is back to 1)
+  // calculate the RPM of the rotation
+  if (current == 1) {
+    fin_t = millis();  // take current time
+    float RPM = calcRPM(fin_t - init_t);  // calculate RPM
+    
+    Serial.println(RPM);  // for testing
+
+    init_t = millis();  // reset initial time value
+    fin_t = 0;  // reset time when rotation is complete
+  }
+  
   // wait for the optical sensor to reach the next cylinder - arbitrary count
   while (digitalRead(opt_sensor) == HIGH);
   while (digitalRead(opt_sensor) == LOW);
@@ -77,16 +91,8 @@ void loop() {
   previous = current;
   ++current;
   
-  // if the current index exceeds the total number of cylinders, set back to 1
-  if (current > num_cylinders) {
-    float RPM = calcRPM(time);
-    Serial.println(RPM);  // for testing
-    
-    time = 0;  // reset time when rotation is complete
+  // if the current index exceeds the total number of cylinders (end of rotation)
+  if (current > num_cylinders) {    
     current = 1;  // set cylinder back to 1
-  }
-  // otherwise, add time since the previous cylinder to total
-  else {
-    time += millis();
   }
 }
