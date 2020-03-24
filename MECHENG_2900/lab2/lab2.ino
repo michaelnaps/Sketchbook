@@ -42,7 +42,11 @@ void setup() {
 
 void loop() {
   val = analogRead(DIST_SENSOR);
-  val = map(val, 0, 255, 0, 20);  // change bounds to that of the distance units (meters)
+
+  // adjust units:
+  // 5V = 1023 bits = 0 meters
+  // 0V = 0 bits = 20 meters
+  val = map(val, 1023, 0, 0, 20);
   
   // for debugging
   Serial.println(val);
