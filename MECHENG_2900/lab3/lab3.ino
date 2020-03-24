@@ -32,7 +32,7 @@ void setup() {
   pinMode(opt_sensor, INPUT);
   pinMode(button, INPUT);
   
-  for (int i(0); i < num_cylinders; ++i) {
+  for (int i(0); i <= num_cylinders; ++i) {
     pinMode((2 * i), OUTPUT);
     pinMode((2 * i + 1), OUTPUT);
     
@@ -46,12 +46,14 @@ void setup() {
 }
 
 void loop() {
+  // wait for the optical sensor to reach the next cylinder - arbitrary count
   while (digitalRead(opt_sensor) == HIGH);
   while (digitalRead(opt_sensor) == LOW);
   
   deactivate(previous);  // deactivate the previous cylinder
   activate(current);  // activate the current cylinder
-  
+
+  // iterate the 'current' and 'previous' cylinders
   previous = current;
   ++current;
   
