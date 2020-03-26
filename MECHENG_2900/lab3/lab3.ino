@@ -6,10 +6,11 @@
 /*
  *  Purpose: ME 2900 - Lab 3 - Air Motor
  *    Program written to control and evaluate an air motor.
+ *  
+ *  NOTE: Program only works when cylinder pins are in sequence.
 */
 
-const int opt_sensor = A2;  // pin for optical sensor
-const int button = A1;  // for extra-credit portion
+const int OPT_SENSOR = A2;  // pin for optical sensor
 const int num_cylinders = 6;  // number of cylinders in the system
 
 // for keeping track of the motor rotation
@@ -17,44 +18,11 @@ int previous = 6;
 int current = 1;
 
 // for the RPM calculation
-float init_t = 0;
-float fin_t = 0;  // initialize to 0
-
-// HELPER FUNCTIONS:
-
-// function: activate()
-// Function that fires the given piston
-// input: piston number
-// output: void
-void activate(const int& cyl) {
-  // NOTE: function only works when cylinder pins are in sequential order
-  digitalWrite((cyl * 2), HIGH);  // open inlet valve
-  digitalWrite((cyl * 2 + 1), LOW);  // close exhaust valve
-}
-
-// function: deactivate()
-// Function that returns cylinder to its 'off' state
-// input: piston number
-// output: void
-void deactivate(const int& cyl) {
-  // NOTE: function only works when cylinder pins are in sequential order
-  digitalWrite((2 * cyl), LOW);  // close the exhaust valve
-  digitalWrite((2 * cyl + 1), HIGH);  // open the exhaust valve
-}
-
-// function: calcRPM()
-// Function that returns the speed of a given rotating body
-// input: time in milliseconds
-// output: RPM speed
-float calcRPM(const int& millisec) {
-  return (1 / ((float)millisec / (60000)));  // return RPM
-}
-
-// MAIN EXECUTION FUNCTIONS
+float init_t = 0;  // initialize to 0
+float fin_t = 0; 
 
 void setup() {
-  pinMode(opt_sensor, INPUT);
-  pinMode(button, INPUT);
+  pinMode(OPT_SENSOR, INPUT);
   
   for (int i(0); i <= num_cylinders; ++i) {
     pinMode((2 * i), OUTPUT);
@@ -63,7 +31,7 @@ void setup() {
     deactivate(i);  // initialize all motors to deactivated position
   }
   
-  // kick start motor by activating both 1 and 2
+  // kick start motor by activating both 1 and 6
   activate(1);
   activate(6);
   
@@ -85,8 +53,8 @@ void loop() {
   }
   
   // wait for the optical sensor to reach the next cylinder - arbitrary count
-  while (digitalRead(opt_sensor) == HIGH);
-  while (digitalRead(opt_sensor) == LOW);
+  while (digitalRead(OPT_SENSOR) == HIGH);
+  while (digitalRead(OPT_SENSOR) == LOW);
   
   deactivate(previous);  // deactivate the previous cylinder
   activate(current);  // activate the current cylinder

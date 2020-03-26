@@ -1,4 +1,4 @@
-// File: button_bounce()
+// File: debounce_example()
 // Created by: Michael Napoli
 // Created on: 2/27/2020
 
