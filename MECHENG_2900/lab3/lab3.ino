@@ -1,13 +1,14 @@
 // Project: ME 2900 - Lab 3
 // Created by: Michael Napoli
 // Created on: 3/24/2020
-// Last modified on:
+// Last modified on: 3/24/2020
 
 /*
  *  Purpose: ME 2900 - Lab 3 - Air Motor
  *    Program written to control and evaluate an air motor.
  *  
  *  NOTE: Program only works when cylinder pins are in sequence.
+ *    i.e. cylinder 1 = pins 2 and 3, cylinder 2 = pins 4 and 5, etc.
 */
 
 const int OPT_SENSOR = A2;  // pin for optical sensor
