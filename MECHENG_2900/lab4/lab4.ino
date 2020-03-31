@@ -54,6 +54,7 @@ void loop()
 }
 */
 
+/*
 // CHANGING SPEEDS PROGRAM
 const int buttonGas = 5;
 const int buttonBrake = 2;
@@ -76,6 +77,9 @@ void loop() {
     delayTime -= 5;
   }
   else if(digitalRead(buttonBrake) == HIGH){
+    // was initially written as:
+    // delayTime = delayTime -5;
+    // this is wrong because the "-5" would be read as a negative 5
     delayTime += 5;
   }
   delayTime = constrain(delayTime, 10, 5000);
@@ -86,8 +90,8 @@ void loop() {
   }
   delay(10);
 }
+*/
 
-/*
 // RGB PROGRAM
 const int redPot = A0;
 const int greenPot = A1;
@@ -109,15 +113,14 @@ void loop() {
   int ledValue;
   
   potValue = analogRead(redPot);
-  ledValue = map(potValue, 0, 255, 0, 1023);
+  ledValue = map(potValue, 0, 1023, 0, 255);  // wrong range - was initially (val, 0, 255, 0, 1023)
   analogWrite(ledR, ledValue);
   
   potValue = analogRead(greenPot);
-  ledValue = map(potValue, 0, 255, 0, 1023);
+  ledValue = map(potValue, 0, 1023, 0, 255);  // wrong range - was initially (val, 0, 255, 0, 1023)
   analogWrite(ledG, ledValue);
   
   potValue = analogRead(bluePot);
-  ledValue = map(potValue, 0, 255, 0, 1023);
+  ledValue = map(potValue, 0, 1023, 0, 255);  // wrong range - was initially (val, 0, 255, 0, 1023)
   analogWrite(ledB, ledValue);
 }
-*/
