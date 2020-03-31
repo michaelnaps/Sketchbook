@@ -38,15 +38,16 @@ void setup()
 
 void loop()
 {
-  while (digitalRead(BUTTON) == HIGH) {
+  if (digitalRead(BUTTON) == HIGH) {
+    digitalWrite(led, LOW);  // in case the led was just on
     val = map(analogRead(POT), 0, 1023, 0, 255);
     forward(val);
-  }
-  brake();
-  
-  while (digitalRead(BUTTON) == LOW) {
+    Serial.println(val);
+  }  
+  else {
+    brake();  // in case the motor was just running
     val = map(analogRead(POT), 0, 1023, 0, 255);
     analogWrite(led, val);
+    Serial.println(val);
   }
-  
 }
