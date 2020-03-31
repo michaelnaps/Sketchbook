@@ -40,7 +40,7 @@ void setup()
 void loop()
 {
   if (digitalRead(BUTTON) == HIGH) {
-    digitalWrite(led, LOW);  // in case the led was just on
+    digitalWrite(led, LOW);  // in case the led was just HIGH
     val = map(analogRead(POT), 0, 1023, 0, 255);
     forward(val);
     Serial.println(val);
