@@ -1,3 +1,4 @@
+
 /*
 Exploring Arduino - Code Listing 5-2: Pentatonic Micro Piano
 http://www.exploringarduino.com/content/ch5
@@ -48,4 +49,3 @@ void loop()
  //Stop playing if all buttons have been released
  noTone(SPEAKER);
 }
-
