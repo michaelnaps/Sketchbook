@@ -1,3 +1,12 @@
+// Project: twomotor_hbridge
+// Created by: Michael Napoli
+// Created on: 3/30/2020
+
+/*
+  Purpose: To test the functionality of running two
+    DC motors with a single H-bridge.
+*/
+
 // left motor
 const int EN_LEFT = 4;
 const int MC_LEFT_1 = 3;
