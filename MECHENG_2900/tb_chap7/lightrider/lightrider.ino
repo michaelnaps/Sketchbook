@@ -26,7 +26,7 @@ void setup()
 }
 
 void loop()
-{
+{  
   for (int i = 0; i < 14; i++)
   {
     digitalWrite(LATCH, LOW);             //Latch Low - start sending
@@ -35,4 +35,3 @@ void loop()
     delay(100);                           //Animation Speed
   }
 }
-
