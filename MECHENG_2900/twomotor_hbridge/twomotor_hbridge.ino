@@ -27,7 +27,7 @@ void setup()
 void loop()
 
 {
-  forward(130);
+  forward(255);
   delay(6000);
 
   brake();
