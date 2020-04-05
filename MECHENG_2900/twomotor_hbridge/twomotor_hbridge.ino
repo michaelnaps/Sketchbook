@@ -18,9 +18,9 @@ void setup()
 void loop()
 
 {
-  forward(150);
-  delay(3000);
-  
+  forward(130);
+  delay(6000);
+
   brake();
   delay(5000);
 }
