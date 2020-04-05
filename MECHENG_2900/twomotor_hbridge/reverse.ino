@@ -1,3 +1,6 @@
+// Function: brake()
+// Created by: Michael Napoli
+// Created on: 3/30/2020
 
 void reverse(const int& rate) {
   // disable drivers
