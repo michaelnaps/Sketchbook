@@ -4,7 +4,7 @@
 
 /*
  *  Purpose: For the execution of appropriate processes in Lab 4.
- *  Activity 2 was chosen for the first part of the following lab.
+ *  Activity 2 was chosen for the first part of the following lab project.
 */
 
 /*
@@ -13,7 +13,7 @@ const int POT = A1;  // analog
 const int BUTTON = 8;  // digital
 
 // LED and motor pins
-const int led = 5;  // pwm
+const int LED = 5;  // pwm
 
 // DC motor pins
 const int EN = 6;
@@ -26,7 +26,7 @@ int val = 0;  // intialize to 0 - arbitrary
 void setup()
 {
   pinMode(BUTTON, INPUT);
-  pinMode(led, OUTPUT);
+  pinMode(LED, OUTPUT);
   
   // H-bridge
   pinMode(EN, OUTPUT);
@@ -40,7 +40,7 @@ void setup()
 void loop()
 {
   if (digitalRead(BUTTON) == HIGH) {
-    digitalWrite(led, LOW);  // in case the led was just HIGH
+    digitalWrite(LED, LOW);  // in case the led was just HIGH
     val = map(analogRead(POT), 0, 1023, 0, 255);
     forward(val);
     Serial.println(val);
@@ -48,7 +48,7 @@ void loop()
   else {
     brake();  // in case the motor was just running
     val = map(analogRead(POT), 0, 1023, 0, 255);
-    analogWrite(led, val);
+    analogWrite(LED, val);
     Serial.println(val);
   }
 }
