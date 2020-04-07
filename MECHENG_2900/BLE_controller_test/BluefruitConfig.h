@@ -52,6 +52,6 @@
 // This should be used with nRF51822 based Bluefruit LE modules that use SPI
 // (Bluefruit LE SPI Friend).
 // ----------------------------------------------------------------------------------------------
-#define BLUEFRUIT_SPI_SCK              13
-#define BLUEFRUIT_SPI_MISO             12
-#define BLUEFRUIT_SPI_MOSI             11
+// #define BLUEFRUIT_SPI_SCK              13
+// #define BLUEFRUIT_SPI_MISO             12
+// #define BLUEFRUIT_SPI_MOSI             11
