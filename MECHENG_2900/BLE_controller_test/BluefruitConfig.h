@@ -2,9 +2,9 @@
 // ----------------------------------------------------------------------------------------------
 // These settings are used in both SW UART, HW UART and SPI mode
 // ----------------------------------------------------------------------------------------------
-#define BUFSIZE                        128   // Size of the read buffer for incoming data
-#define VERBOSE_MODE                   true  // If set to 'true' enables debug output
-#define BLE_READPACKET_TIMEOUT         500   // Timeout in ms waiting to read a response
+#define BUFSIZE                        128    // Size of the read buffer for incoming data
+#define VERBOSE_MODE                   true   // If set to 'true' enables debug output
+#define BLE_READPACKET_TIMEOUT         500    // Timeout in ms waiting to read a response
 
 
 // SOFTWARE UART SETTINGS
@@ -15,7 +15,7 @@
 #define BLUEFRUIT_SWUART_RXD_PIN       9    // Required for software serial!
 #define BLUEFRUIT_SWUART_TXD_PIN       10   // Required for software serial!
 #define BLUEFRUIT_UART_CTS_PIN         11   // Required for software serial!
-#define BLUEFRUIT_UART_RTS_PIN         8    // Optional, set to -1 if unused
+#define BLUEFRUIT_UART_RTS_PIN         -1    // Optional, set to -1 if unused
 
 
 // HARDWARE UART SETTINGS
@@ -32,7 +32,7 @@
 // ----------------------------------------------------------------------------------------------
 // The following sets the optional Mode pin, its recommended but not required
 // ----------------------------------------------------------------------------------------------
-#define BLUEFRUIT_UART_MODE_PIN        12    // Set to -1 if unused
+#define BLUEFRUIT_UART_MODE_PIN        -1    // Set to -1 if unused
 
 
 // SHARED SPI SETTINGS
