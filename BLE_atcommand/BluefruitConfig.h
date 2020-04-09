@@ -2,9 +2,8 @@
 // ----------------------------------------------------------------------------------------------
 // These settings are used in both SW UART, HW UART and SPI mode
 // ----------------------------------------------------------------------------------------------
-#define BUFSIZE                        128    // Size of the read buffer for incoming data
+#define BUFSIZE                        160   // Size of the read buffer for incoming data
 #define VERBOSE_MODE                   false  // If set to 'true' enables debug output
-#define BLE_READPACKET_TIMEOUT         500    // Timeout in ms waiting to read a response
 
 
 // SOFTWARE UART SETTINGS
@@ -13,7 +12,7 @@
 // You should use this option if you are connecting the UART Friend to an UNO
 // ----------------------------------------------------------------------------------------------
 #define BLUEFRUIT_SWUART_RXD_PIN       0    // Required for software serial!
-#define BLUEFRUIT_SWUART_TXD_PIN       1    // Required for software serial!
+#define BLUEFRUIT_SWUART_TXD_PIN       1   // Required for software serial!
 #define BLUEFRUIT_UART_CTS_PIN         12   // Required for software serial!
 #define BLUEFRUIT_UART_RTS_PIN         -1   // Optional, set to -1 if unused
 
@@ -23,9 +22,9 @@
 // The following macros declare the HW serial port you are using. Uncomment
 // this line if you are connecting the BLE to Leonardo/Micro or Flora
 // ----------------------------------------------------------------------------------------------
-// #ifdef Serial1    // this makes it not complain on compilation if there's no Serial1
-//   #define BLUEFRUIT_HWSERIAL_NAME      Serial1
-// #endif
+#ifdef Serial1    // this makes it not complain on compilation if there's no Serial1
+  #define BLUEFRUIT_HWSERIAL_NAME      Serial1
+#endif
 
 
 // SHARED UART SETTINGS
@@ -44,7 +43,7 @@
 // ----------------------------------------------------------------------------------------------
 // #define BLUEFRUIT_SPI_CS               8
 // #define BLUEFRUIT_SPI_IRQ              7
-// #define BLUEFRUIT_SPI_RST              -1    // Optional but recommended, set to -1 if unused
+// #define BLUEFRUIT_SPI_RST              4    // Optional but recommended, set to -1 if unused
 
 // SOFTWARE SPI SETTINGS
 // ----------------------------------------------------------------------------------------------
