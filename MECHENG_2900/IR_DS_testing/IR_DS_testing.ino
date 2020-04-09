@@ -5,9 +5,13 @@
 #include <IRremote.h>
 
 // IR SENSOR PINS:
-const int IR_PIN(9);
+const int IR_PIN(6);
 IRrecv ir_rec(IR_PIN);
 decode_results results;
+
+// DISTANCE SENSOR PINS:
+const int TRIG(4);
+const int ECHO(5);
 
 // PROGRAM EXECUTION VARIABLES:
 int cmd_input(0);
@@ -20,6 +24,12 @@ bool MODE = true;  // initialize to remote control mode
 void setup() {
   Serial.begin(9600);
   ir_rec.enableIRIn();  // start reciever
+
+  // Initialize distance variables
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  digitalWrite(TRIG, LOW);
+  digitalWrite(ECHO, LOW);
 }
 
 void loop() {
@@ -57,8 +67,6 @@ void loop() {
     ir_rec.resume();
   }
   else if (!MODE) {
-    Serial.println("Automatice Mode");
-
     // check for the mode switch command from IR sensor
     if (ir_rec.decode(&results)) {
       current = results.value;
@@ -69,6 +77,8 @@ void loop() {
       ir_rec.resume();
     }
     
+    Serial.print("Distance: ");
+    Serial.println(distance(TRIG, ECHO));
     delay(500);
   }
 }
