@@ -9,9 +9,10 @@ const int IR_PIN(6);
 IRrecv ir_rec(IR_PIN);
 decode_results results;
 
-// DISTANCE SENSOR PINS:
+// DISTANCE SENSOR VARIABLES:
 const int TRIG(4);
 const int ECHO(5);
+float dist(0);
 
 // PROGRAM EXECUTION VARIABLES:
 int cmd_input(0);
@@ -66,19 +67,22 @@ void loop() {
     
     ir_rec.resume();
   }
-  else if (!MODE) {
+  else if (!MODE) {    
+    Serial.print("Distance: ");
+    dist = distance(TRIG, ECHO);
+    Serial.println(dist);
+    delay(500);
+    
     // check for the mode switch command from IR sensor
     if (ir_rec.decode(&results)) {
       current = results.value;
+      Serial.print(current);
+      Serial.print(": ");
       if (current == 26775) {
         Serial.println("Switching Mode");
         MODE = !MODE;
       }
       ir_rec.resume();
     }
-    
-    Serial.print("Distance: ");
-    Serial.println(distance(TRIG, ECHO));
-    delay(500);
   }
 }
