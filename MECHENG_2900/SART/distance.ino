@@ -1,30 +1,31 @@
 // Function: distance()
 // Created by: Michael Napoli
-// Created on: 3/7/2020
+// Created on: 4/9/2020
 
 /*
- * Purpose: Program that returns the measurement distance
- *  from the distance sensor in centimeters.
+  Purpose: Function to return the distance from a given ultrasonic
+    distance sensor (UDS).
+
+  input:
+    'trigPin' - pin number for UDS trigger pin - output
+    'echoPin' - pin number for UDS echo pin - input
+
+  output:
+    - distance from UDS
 */
 
-double distance(const int trig, const int echo)
-{
-  int dist_time(0);  // for the time of the ping of the sensor
-
-  // set pins to LOW
-  digitalWrite(trig, LOW);
-  digitalWrite(echo, LOW);
-  delay(1);  // delay for 1 millisecond
-
-  // set 'trig' to HIGH for 10 microseconds
-  digitalWrite(trig, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trig, LOW);
-
-  // measure time that 'echo' is set to HIGH
-  dist_time = pulseIn(echo, HIGH);
+float distance(const int& trigPin, const int& echoPin) {
+  float change_t(0);
+  const int SOUND(343);  // in m/s
   
-  // return the distance using the following eqution:
-  // distance = time * speed of sound
-  return (dist_time * 0.0343) / 2;
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  change_t = pulseIn(echoPin, HIGH);  // returns pulse in microseconds
+  digitalWrite(echoPin, LOW);
+
+  return (((change_t / 10000) * SOUND) / 2);
 }

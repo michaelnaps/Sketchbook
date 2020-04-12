@@ -2,10 +2,9 @@
 // Created by: Michael Napoli
 // Created on: 3/26/2020
 
-const int EN = 9;
+const int EN = 4;
 const int MC1 = 3;
 const int MC2 = 2;
-const int POT = A0;
 
 int val = 0;
 int velocity = 0;
@@ -40,17 +39,9 @@ void setup()
 
 void loop()
 {
-  val = analogRead(POT);
-  
-  if (val > 562) {
-    velocity = map(val, 563, 1023, 0, 255);
-    forward(velocity);
-  }
-  else if ( val < 462) {
-    velocity = map(val, 461, 0, 0, 255);
-    reverse(velocity);
-  }
-  else {
-    brake();
-  }
+  forward(255);
+  delay(6000);
+
+  brake();
+  delay(3000);
 }
