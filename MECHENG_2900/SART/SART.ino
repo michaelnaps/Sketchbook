@@ -1,4 +1,4 @@
-// Project: A.R.T. (Autonomous Robotic Toy)
+ // Project: A.R.T. (Autonomous Robotic Toy)
 // Created by: Michael Napoli
 // Created on: 3/7/2020
 // Last modified on:
@@ -75,7 +75,8 @@ void loop()
       Serial.println("Left");
     }
     else if (cmd_input == 19125) {
-      Serial.println("Backward");
+      Serial.println("Reverse");
+      reverse(255);
     }
     else if (cmd_input == 14535) {
       Serial.println("Brake");
