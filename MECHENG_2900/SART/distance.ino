@@ -11,7 +11,7 @@
     'echoPin' - pin number for UDS echo pin - input
 
   output:
-    - distance from UDS
+    - distance from UDS - type float
 */
 
 float distance(const int& trigPin, const int& echoPin) {
@@ -27,5 +27,5 @@ float distance(const int& trigPin, const int& echoPin) {
   change_t = pulseIn(echoPin, HIGH);  // returns pulse in microseconds
   digitalWrite(echoPin, LOW);
 
-  return (((change_t / 10000) * SOUND) / 2);
+  return (((change_t / 10000) * (float)SOUND) / 2);
 }

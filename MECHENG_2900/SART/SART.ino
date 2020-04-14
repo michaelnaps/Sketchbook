@@ -19,6 +19,7 @@ int current(0);
 bool MODE(true);
 
 // H-BRIDGE MOTOR PINS:
+const float TURN_RATIO(0.55);
 // Left Motor
 const int EN_LEFT(4);
 const int MC_LEFT_1(3);
@@ -28,7 +29,7 @@ const int EN_RIGHT(7);
 const int MC_RIGHT_1(6);
 const int MC_RIGHT_2(5);
 
-// IR SENSOR:
+// IR SENSOR VARIABLES:
 const int IR_PIN(10);
 const int IR_STATIC_VAL(-1);
 IRrecv ir_rec(IR_PIN);
@@ -70,9 +71,11 @@ void loop()
     }
     else if (cmd_input == 23205) {
       Serial.println("Right");
+      turn_right(255);
     }
     else if (cmd_input == 4335) {
       Serial.println("Left");
+      turn_left(255);
     }
     else if (cmd_input == 19125) {
       Serial.println("Reverse");
