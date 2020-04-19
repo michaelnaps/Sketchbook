@@ -11,6 +11,7 @@
     
 */
 
+#include <Servo.h>  // servo motor control library
 #include <IRremote.h>  // infra-red sensor control/decode library
 
 // PROGRAM EXECUTION PINS:
@@ -19,7 +20,6 @@ int current(0);
 bool MODE(true);
 
 // H-BRIDGE MOTOR PINS:
-const float TURN_RATIO(0.55);
 // Left Motor
 const int EN_LEFT(4);
 const int MC_LEFT_1(3);
@@ -28,6 +28,10 @@ const int MC_LEFT_2(2);
 const int EN_RIGHT(7);
 const int MC_RIGHT_1(6);
 const int MC_RIGHT_2(5);
+
+// SERVO MOTOR PIN:
+Servo sart_servo;
+const int SERVO_PIN(11);
 
 // IR SENSOR VARIABLES:
 const int IR_PIN(10);
@@ -42,8 +46,20 @@ float dist(0);
 
 void setup()
 {
-  ir_rec.enableIRIn();
+  // initialize h-bridge pins
+  pinMode(EN_LEFT, OUTPUT);
+  pinMode(MC_LEFT_1, OUTPUT);
+  pinMode(MC_LEFT_2, OUTPUT);
+  pinMode(EN_RIGHT, OUTPUT);
+  pinMode(MC_RIGHT_1, OUTPUT);
+  pinMode(MC_RIGHT_2, OUTPUT);
+
+  sart_servo.attach(SERVO_PIN);  // initialize servo motor
+  sart_servo.write(100);  // start in forward position
   
+  ir_rec.enableIRIn();  // initialize IR sensor
+
+  // DISTANCE SENSOR VARIABLES
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
   digitalWrite(TRIG, LOW);

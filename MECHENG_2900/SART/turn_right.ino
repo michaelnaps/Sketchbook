@@ -9,6 +9,9 @@
 */
 
 void turn_right(const int& rate) {
+  // turn SART legs right
+  sart_servo.write(60);
+  
   // disable drivers
   digitalWrite(EN_LEFT, LOW);
   digitalWrite(EN_RIGHT, LOW);
@@ -21,5 +24,5 @@ void turn_right(const int& rate) {
   
   // start motors at given speed
   analogWrite(EN_LEFT, rate);
-  analogWrite(EN_RIGHT, (int)((float)rate * TURN_RATIO));
+  analogWrite(EN_RIGHT, rate);
 }

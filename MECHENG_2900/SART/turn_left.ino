@@ -1,4 +1,4 @@
-// Function: turn_;eft()
+// Function: turn_left()
 // Created by: Michael Napoli
 // Created on: 4/14/2020
 
@@ -9,6 +9,9 @@
 */
 
 void turn_left(const int& rate) {
+  // turn SART legs
+  sart_servo.write(120);
+  
   // disable drivers
   digitalWrite(EN_LEFT, LOW);
   digitalWrite(EN_RIGHT, LOW);
@@ -20,6 +23,6 @@ void turn_left(const int& rate) {
   digitalWrite(MC_RIGHT_2, LOW);
   
   // start motors at given speed
-  analogWrite(EN_LEFT, (int)((float)rate * TURN_RATIO));
+  analogWrite(EN_LEFT, rate);
   analogWrite(EN_RIGHT, rate);
 }

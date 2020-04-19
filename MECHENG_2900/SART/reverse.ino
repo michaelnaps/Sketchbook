@@ -3,6 +3,9 @@
 // Created on: 3/30/2020
 
 void reverse(const int& rate) {
+  // straighten SART legs
+  sart_servo.write(100);
+
   // disable drivers
   digitalWrite(EN_LEFT, LOW);
   digitalWrite(EN_RIGHT, LOW);
