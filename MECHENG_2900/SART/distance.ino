@@ -12,7 +12,7 @@
     - distance from UDS - type float
 */
 
-float distance(const int& trigPin, const int& echoPin) {
+float distance(const int trigPin, const int echoPin) {
   float change_t(0);
   const int SOUND(343);  // in cm/s
 
@@ -28,5 +28,5 @@ float distance(const int& trigPin, const int& echoPin) {
   change_t = pulseIn(echoPin, HIGH);  // returns length of pulse in microseconds
   digitalWrite(echoPin, LOW);  // set echo pin to LOW
 
-  return change_t; // (((change_t / 10000) * (float)SOUND) / 2);
+  return ((change_t * 0.0343) / 2);
 }

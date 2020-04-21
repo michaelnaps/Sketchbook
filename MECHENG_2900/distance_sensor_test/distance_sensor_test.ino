@@ -25,6 +25,11 @@ void setup() {
 }
 
 void loop() {
+  // clear trig pin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  // set pin HIGH for 10 microseconds
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
@@ -38,5 +43,5 @@ void loop() {
   digitalWrite(echoPin, LOW);
   digitalWrite(trigPin, LOW);
   
-  delay(100);
+  delay(500);
 }
