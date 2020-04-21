@@ -10,7 +10,7 @@
   This project will have the following capabilities:
     1). Control of a small Arduino Uno operated car via IR remote.
     2). Simple automated movement via UltraSonic Distance Sensor.
-    3). Easy way to maneuver between the two different modes.
+    3). Easy way to switch between the two different modes.
     
 */
 
@@ -83,11 +83,11 @@ void loop()
     }
     else if (cmd_input == 18105) {
       Serial.println("Right");
-      turn_right(255);
+      turn_right();
     }
     else if (cmd_input == -22951) {
       Serial.println("Left");
-      turn_left(255);
+      turn_left();
     }
     else if (cmd_input == -31111) {
       Serial.println("Reverse");
@@ -99,6 +99,7 @@ void loop()
     }
     else if (cmd_input == -11731) {
       Serial.println("Switching Mode");
+      brake();  // brake when switching between modes
       MODE = !MODE;  // switch value of mode to opposite 
     }
     
@@ -110,18 +111,18 @@ void loop()
     Serial.println(distance(TRIG, ECHO));
     delay(500);
 
-/*
     // direction of SART conditions
-    if (dist > 30) {
+    if (dist > 20) {
       forward(255);
     }
-    else if (dist <= 30) {
+    else if (dist <= 20) {
       reverse(255);
+      turn_right();
       delay(2000);
-      turn_right(255);
+      forward(255);
+      turn_left();
       delay(2000);
     }
-*/
     
     // check for the mode switch command from IR sensor
     if (ir_rec.decode(&results)) {
@@ -130,8 +131,10 @@ void loop()
       Serial.print(": ");
       if (cmd_input == -11731) {
         Serial.println("Switching Mode");
+        brake();  // brake when converting between modes
         MODE = !MODE;
       }
+      // clear IR sensor for next value
       ir_rec.resume();
     }
   }

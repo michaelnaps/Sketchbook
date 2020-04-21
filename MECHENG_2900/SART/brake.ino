@@ -2,6 +2,10 @@
 // Created by: Michael Napoli
 // Created on: 3/30/2020
 
+/*
+  Purpose: Brake all motors when called.
+*/
+
 void brake() {
   // disable drivers 
   digitalWrite(EN_LEFT, LOW);
