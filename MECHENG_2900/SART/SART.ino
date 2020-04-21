@@ -114,7 +114,7 @@ void loop()
   else if (!MODE) {    
     Serial.print("Distance: ");
     Serial.println(distance(TRIG, ECHO));
-    delay(250);
+    delay(500);
     
     // check for the mode switch command from IR sensor
     if (ir_rec.decode(&results)) {

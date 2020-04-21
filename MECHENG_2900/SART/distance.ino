@@ -16,16 +16,19 @@
 
 float distance(const int& trigPin, const int& echoPin) {
   float change_t(0);
-  const int SOUND(343);  // in m/s
-  
+  const int SOUND(343);  // in cm/s
+
+  // clear trig pin
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
+
+  // set pin HIGH for 10 microseconds
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
   
-  change_t = pulseIn(echoPin, HIGH);  // returns pulse in microseconds
-  digitalWrite(echoPin, LOW);
+  change_t = pulseIn(echoPin, HIGH);  // returns length of pulse in microseconds
+  digitalWrite(echoPin, LOW);  // set echo pin to LOW
 
-  return (((change_t / 10000) * (float)SOUND) / 2);
+  return change_t; // (((change_t / 10000) * (float)SOUND) / 2);
 }
