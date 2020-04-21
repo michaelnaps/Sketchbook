@@ -7,14 +7,17 @@
   Purpose: Main execution file for S.A.R.T. program.
     S.A.R.T. (Semi Automatic Remote Toy)
 
-  This project will have the following capabilities
+  This project will have the following capabilities:
+    1). Control of a small Arduino Uno operated car via IR remote.
+    2). Simple automated movement via UltraSonic Distance Sensor.
+    3). Easy way to maneuver between the two different modes.
     
 */
 
 #include <Servo.h>  // servo motor control library
 #include <IRremote.h>  // infra-red sensor control/decode library
 
-// PROGRAM EXECUTION PINS:
+// PROGRAM EXECUTION VARIABLES:
 int cmd_input(0);
 int current(0);
 bool MODE(true);
@@ -29,13 +32,13 @@ const int EN_RIGHT(7);
 const int MC_RIGHT_1(6);
 const int MC_RIGHT_2(5);
 
-// SERVO MOTOR PIN:
-Servo sart_servo;
+// SERVO MOTOR VARIABLES:
 const int SERVO_PIN(11);
+Servo sart_servo;
 
 // IR SENSOR VARIABLES:
 const int IR_PIN(10);
-const int IR_STATIC_VAL(-1);
+const int IR_STATIC_VAL(-1);  // static value from IR remote
 IRrecv ir_rec(IR_PIN);
 decode_results results;
 
@@ -81,27 +84,27 @@ void loop()
     Serial.print(current);
     Serial.print(": ");
     
-    if (cmd_input == 6375) {
+    if (cmd_input == 1785) {
       Serial.println("Forward");
       forward(255);
     }
-    else if (cmd_input == 23205) {
+    else if (cmd_input == 18105) {
       Serial.println("Right");
       turn_right(255);
     }
-    else if (cmd_input == 4335) {
+    else if (cmd_input == -22951) {
       Serial.println("Left");
       turn_left(255);
     }
-    else if (cmd_input == 19125) {
+    else if (cmd_input == -31111) {
       Serial.println("Reverse");
       reverse(255);
     }
-    else if (cmd_input == 14535) {
+    else if (cmd_input == 5865) {
       Serial.println("Brake");
       brake();
     }
-    else if (cmd_input == 26775) {
+    else if (cmd_input == -11731) {
       Serial.println("Switching Mode");
       MODE = !MODE;  // switch value of mode to opposite 
     }
@@ -110,8 +113,7 @@ void loop()
   }
   else if (!MODE) {    
     Serial.print("Distance: ");
-    dist = distance(TRIG, ECHO);
-    Serial.println(dist);
+    Serial.println(distance(TRIG, ECHO));
     delay(250);
     
     // check for the mode switch command from IR sensor
@@ -119,7 +121,7 @@ void loop()
       current = results.value;
       Serial.print(current);
       Serial.print(": ");
-      if (current == 26775) {
+      if (current == -11731) {
         Serial.println("Switching Mode");
         MODE = !MODE;
       }
