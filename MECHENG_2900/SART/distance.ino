@@ -5,11 +5,9 @@
 /*
   Purpose: Function to return the distance from a given ultrasonic
     distance sensor (UDS).
-
   input:
     'trigPin' - pin number for UDS trigger pin - output
     'echoPin' - pin number for UDS echo pin - input
-
   output:
     - distance from UDS - type float
 */

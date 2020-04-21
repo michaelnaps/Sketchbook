@@ -3,14 +3,16 @@
 // Created on: 4/14/2020
 
 /*
-  Purpose: Turn the SART vehicle at a given maximum radius speed.
-
+  Purpose: Turn the SART vehicle at a given speed.
    input: 'rate' - speed of the left motor
 */
 
 void turn_right(const int& rate) {
+  // check speed is in allowable range
+  constrain(rate, 0, 255);
+  
   // turn SART legs right
-  sart_servo.write(60);
+  control_servo.write(60);
   
   // disable drivers
   digitalWrite(EN_LEFT, LOW);

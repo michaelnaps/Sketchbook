@@ -18,9 +18,8 @@
 #include <IRremote.h>  // infra-red sensor control/decode library
 
 // PROGRAM EXECUTION VARIABLES:
-int cmd_input(0);
-int current(0);
-bool MODE(true);
+int cmd_input(0);  // input from IR remote
+bool MODE(true);  // for switching between manual and automatic function
 
 // H-BRIDGE MOTOR PINS:
 // Left Motor
@@ -33,11 +32,11 @@ const int MC_RIGHT_1(6);
 const int MC_RIGHT_2(5);
 
 // SERVO MOTOR VARIABLES:
-const int SERVO_PIN(11);
-Servo sart_servo;
+const int SERVO_PIN(11);  // pin for servo motor
+Servo control_servo;
 
 // IR SENSOR VARIABLES:
-const int IR_PIN(10);
+const int IR_PIN(10);  // pin for IR sensor
 IRrecv ir_rec(IR_PIN);
 decode_results results;
 
@@ -56,8 +55,8 @@ void setup()
   pinMode(MC_RIGHT_1, OUTPUT);
   pinMode(MC_RIGHT_2, OUTPUT);
 
-  sart_servo.attach(SERVO_PIN);  // initialize servo motor
-  sart_servo.write(100);  // start in forward position
+  control_servo.attach(SERVO_PIN);  // initialize servo motor
+  control_servo.write(100);  // start in forward position
   
   ir_rec.enableIRIn();  // initialize IR sensor
 
@@ -126,10 +125,10 @@ void loop()
     
     // check for the mode switch command from IR sensor
     if (ir_rec.decode(&results)) {
-      current = results.value;
-      Serial.print(current);
+      cmd_input = results.value;
+      Serial.print(cmd_input);
       Serial.print(": ");
-      if (current == -11731) {
+      if (cmd_input == -11731) {
         Serial.println("Switching Mode");
         MODE = !MODE;
       }

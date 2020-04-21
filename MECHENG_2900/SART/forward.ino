@@ -2,9 +2,17 @@
 // Created by: Michael Napoli
 // Created on: 3/30/2020
 
+/*
+  Purpose: Move the SART vehicle forward at a given speed.
+   input: 'rate' - speed of the left motor
+*/
+
 void forward(const int& rate) {
+  // check speed is in allowable range
+  constrain(rate, 0, 255);
+  
   // straighten SART legs
-  sart_servo.write(100);
+  control_servo.write(100);
   
   // disable drivers
   digitalWrite(EN_LEFT, LOW);
