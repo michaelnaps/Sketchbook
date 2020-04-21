@@ -8,8 +8,8 @@
 
 double distance(0);
 int dist_t(0);
-const int trigPin(5);
-const int echoPin(7);
+const int trigPin(8);
+const int echoPin(9);
 
 const int speed_sound(343);  // in m/s
 

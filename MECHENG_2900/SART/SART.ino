@@ -38,7 +38,6 @@ Servo sart_servo;
 
 // IR SENSOR VARIABLES:
 const int IR_PIN(10);
-const int IR_STATIC_VAL(-1);  // static value from IR remote
 IRrecv ir_rec(IR_PIN);
 decode_results results;
 
@@ -74,14 +73,9 @@ void setup()
 void loop() 
 {
   if (MODE && ir_rec.decode(&results)) {
-    current = results.value;  // cannot use raw value call in boolean statements
+    cmd_input = results.value;  // cannot use raw value call in boolean statements
   
-    // filter out the static IR value (equal to -1)
-    if (current != IR_STATIC_VAL) {
-      cmd_input = current;
-    }
-  
-    Serial.print(current);
+    Serial.print(cmd_input);
     Serial.print(": ");
     
     if (cmd_input == 1785) {
@@ -113,8 +107,22 @@ void loop()
   }
   else if (!MODE) {    
     Serial.print("Distance: ");
+    dist = distance(TRIG, ECHO);
     Serial.println(distance(TRIG, ECHO));
     delay(500);
+
+/*
+    // direction of SART conditions
+    if (dist > 30) {
+      forward(255);
+    }
+    else if (dist <= 30) {
+      reverse(255);
+      delay(2000);
+      turn_right(255);
+      delay(2000);
+    }
+*/
     
     // check for the mode switch command from IR sensor
     if (ir_rec.decode(&results)) {

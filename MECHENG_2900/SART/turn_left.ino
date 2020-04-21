@@ -10,7 +10,7 @@
 
 void turn_left(const int& rate) {
   // turn SART legs
-  sart_servo.write(120);
+  sart_servo.write(140);
   
   // disable drivers
   digitalWrite(EN_LEFT, LOW);
