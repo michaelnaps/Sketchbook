@@ -112,6 +112,8 @@ void loop()
     delay(500);
 
     // direction of SART conditions
+    // NOTE: distance sensor return values automatically help to remove noise
+    // and improper distances
     if (dist > 20) {
       forward(255);
     }
@@ -124,7 +126,7 @@ void loop()
       delay(2000);
     }
     
-    // check for the mode switch command from IR sensor
+    // check for the mode switch command from IR remote
     if (ir_rec.decode(&results)) {
       cmd_input = results.value;
       Serial.print(cmd_input);
