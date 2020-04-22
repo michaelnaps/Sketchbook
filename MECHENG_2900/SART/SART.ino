@@ -71,6 +71,7 @@ void setup()
 
 void loop() 
 {
+  // if the mode is in manual and there is a signal to the remote use this branch
   if (MODE && ir_rec.decode(&results)) {
     cmd_input = results.value;  // cannot use raw value call in boolean statements
   
@@ -105,17 +106,22 @@ void loop()
     
     ir_rec.resume();
   }
+  // if the mode is switched it automatic use this branch
   else if (!MODE) {    
     Serial.print("Distance: ");
     dist = distance(TRIG, ECHO);
     Serial.println(distance(TRIG, ECHO));
-    delay(500);
 
     // direction of SART conditions
     // NOTE: distance sensor return values automatically help to remove noise
     // and improper distances
-    if (dist > 20) {
+    if (dist > 40) {
       forward(255);
+    }
+    else if (dist > 20 && dist <= 40) {
+      // begin turning but continue moving forward
+      forward(255);
+      turn_left();
     }
     else if (dist <= 20) {
       reverse(255);
