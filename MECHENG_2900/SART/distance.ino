@@ -9,24 +9,28 @@
     'trigPin' - pin number for UDS trigger pin - output
     'echoPin' - pin number for UDS echo pin - input
   output:
-    - distance from UDS - type float
+    - distance from UDS - type float - unit centimeters
 */
 
 float distance(const int trigPin, const int echoPin) {
-  float change_t(0);
+  float change_t(0);  // change in time variable
   const int SOUND(343);  // in cm/s
 
-  // clear trig pin
+  // turn trig pin off
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
 
-  // set pin HIGH for 10 microseconds
+  // set trigger pin HIGH for 10 microseconds to send sound pulse
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
   
-  change_t = pulseIn(echoPin, HIGH);  // returns length of pulse in microseconds
-  digitalWrite(echoPin, LOW);  // set echo pin to LOW
+  // returns length of pulse in microseconds
+  change_t = pulseIn(echoPin, HIGH);
+  
+  // turn echo pin off after use
+  digitalWrite(echoPin, LOW);
 
+  // return distance in centimeters
   return ((change_t * 0.0343) / 2);
 }

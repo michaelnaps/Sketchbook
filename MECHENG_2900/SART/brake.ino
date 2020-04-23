@@ -11,7 +11,7 @@ void brake() {
   digitalWrite(EN_LEFT, LOW);
   digitalWrite(EN_RIGHT, LOW);
   
-  // toggle switches to brake
+  // toggle switches to brake - all LOW
   digitalWrite(MC_LEFT_1, LOW);
   digitalWrite(MC_LEFT_2, LOW);
   digitalWrite(MC_RIGHT_1, LOW);
