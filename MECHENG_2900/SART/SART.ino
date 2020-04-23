@@ -1,4 +1,4 @@
- // Project: A.R.T. (Autonomous Robotic Toy)
+// Project: S.A.R.T. (Semi-Autonomous Robotic Toy)
 // Created by: Michael Napoli
 // Created on: 3/7/2020
 // Last modified on:
@@ -23,6 +23,9 @@
 int cmd_input(0);  // input from IR remote
 // for switching between manual and automatic functionality
 bool MODE(true);  // initilized to manual (manual == true)
+const int LED(12);  // pin for LED - shows which mode vehicle is in
+// off - manual mode
+// on - automatic mode
 
 // H-BRIDGE MOTOR PINS:
 // Left Motor
@@ -71,6 +74,10 @@ void setup()
   digitalWrite(TRIG, LOW);
   digitalWrite(ECHO, LOW);
 
+  // initialize LED as an output
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);  // LOW - manual
+  
   // Serial.begin(9600);  // begin // Serial monitor for error evaluation
 }
 
@@ -113,6 +120,7 @@ void loop()
     else if (cmd_input == -11731) {
       // Serial.println("Switching Mode");
       brake();  // brake when switching between modes
+      digitalWrite(LED, HIGH);  // turn led on for automatic
       MODE = !MODE;  // switch value of mode to opposite 
     }
 
@@ -160,6 +168,7 @@ void loop()
       if (cmd_input == -11731) {
         // Serial.println("Switching Mode");
         brake();  // brake when converting between modes
+        digitalWrite(LED, LOW);  // turn led off for manual
         MODE = !MODE;
       }
       // clear IR sensor for next value
