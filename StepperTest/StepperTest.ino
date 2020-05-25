@@ -1,49 +1,43 @@
-/* 
-This is a test sketch for the Adafruit assembled Motor Shield for Arduino v2
-It won't work with v1.x motor shields! Only for the v2's with built in PWM
-control
-For use with the Adafruit Motor Shield v2 
----->  http://www.adafruit.com/products/1438
-*/
+
+/*
+ Stepper Motor Control - one revolution
+
+ This program drives a unipolar or bipolar stepper motor.
+ The motor is attached to digital pins 8 - 11 of the Arduino.
+
+ The motor should revolve one revolution in one direction, then
+ one revolution in the other direction.
 
 
-#include <Wire.h>
-#include <Adafruit_MotorShield.h>
+ Created 11 Mar. 2007
+ Modified 30 Nov. 2009
+ by Tom Igoe
 
-// Create the motor shield object with the default I2C address
-Adafruit_MotorShield AFMS = Adafruit_MotorShield(); 
-// Or, create it with a different I2C address (say for stacking)
-// Adafruit_MotorShield AFMS = Adafruit_MotorShield(0x61); 
+ */
 
-// Connect a stepper motor with 200 steps per revolution (1.8 degree)
-// to motor port #2 (M3 and M4)
-Adafruit_StepperMotor *myMotor = AFMS.getStepper(200, 2);
+#include <Stepper.h>
 
+const int stepsPerRevolution = 2048;  // change this to fit the number of steps per revolution
+// for your motor
+
+// initialize the stepper library on pins 8 through 11:
+Stepper myStepper(stepsPerRevolution, 8, 9, 10, 11);
 
 void setup() {
-  Serial.begin(9600);           // set up Serial library at 9600 bps
-  Serial.println("Stepper test!");
-
-  AFMS.begin();  // create with the default frequency 1.6KHz
-  //AFMS.begin(1000);  // OR with a different frequency, say 1KHz
-  
-  myMotor->setSpeed(10);  // 10 rpm   
+  // set the speed at 10 rpm:
+  myStepper.setSpeed(10);
+  // initialize the serial port:
+  Serial.begin(9600);
 }
 
 void loop() {
-  Serial.println("Single coil steps");
-  myMotor->step(100, FORWARD, SINGLE); 
-  myMotor->step(100, BACKWARD, SINGLE); 
+  // step one revolution  in one direction:
+  Serial.println("clockwise");
+  myStepper.step(stepsPerRevolution);
+  delay(500);
 
-  Serial.println("Double coil steps");
-  myMotor->step(100, FORWARD, DOUBLE); 
-  myMotor->step(100, BACKWARD, DOUBLE);
-  
-  Serial.println("Interleave coil steps");
-  myMotor->step(100, FORWARD, INTERLEAVE); 
-  myMotor->step(100, BACKWARD, INTERLEAVE); 
-  
-  Serial.println("Microstep steps");
-  myMotor->step(50, FORWARD, MICROSTEP); 
-  myMotor->step(50, BACKWARD, MICROSTEP);
+  // step one revolution in the other direction:
+  Serial.println("counterclockwise");
+  myStepper.step(-1 * stepsPerRevolution);
+  delay(500);
 }
