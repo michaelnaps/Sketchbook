@@ -21,9 +21,12 @@ void setup() {
 }
 
 void loop() {
-  if(digitalRead(Q_pin)) {
+  bool val = digitalRead(Q_pin);
+  
+  if(val != HIGH) {
     Serial.println(Q.getName());
   }
+  /*
   if(digitalRead(D_pin)) {
     Serial.println(D.getName());
   }
@@ -33,6 +36,7 @@ void loop() {
   if(digitalRead(P_pin)) {
     Serial.println(P.getName());
   }
+  */
 
   delay(1000);
 }
