@@ -22,20 +22,20 @@ void setup() {
 
 void loop() {
   if (dir) {
-    ++ang;
-    EYES.step(1);
+    ang += 16;
+    EYES.step(16);
   }
   else {
-    --ang;
-    EYES.step(-1);
+    ang -= 16;
+    EYES.step(-16);
   }
   
   dist = distance(TRIG, ECHO);
   Serial.print(dist);
   Serial.print(", ");
-  Serial.println(ang);
+  Serial.println(((float)ang / 2048.0) * 360.0);
 
-  if (ang == 360) {
+  if (ang == 2048) {
     dir = true;  // switch directions
   }
   else if (ang == 0) {
