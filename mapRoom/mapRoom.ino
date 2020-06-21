@@ -4,8 +4,8 @@
 const int stepsPerRev(2048);
 Stepper EYES(stepsPerRev, 2, 3, 4, 5);
 
-const int TRIG(7);
-const int ECHO(8);
+const int TRIG(8);
+const int ECHO(9);
 
 bool dir(true);
 int ang(0);  // initialize to 0
