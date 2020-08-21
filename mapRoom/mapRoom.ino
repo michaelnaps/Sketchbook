@@ -9,8 +9,8 @@
 const int DIR(4);
 const int STEP(5);
 
-const int TRIG(8);
-const int ECHO(9);
+const int TRIG(7);
+const int ECHO(8);
 
 int ang(0);  // initialize to 0
 float dist(0);  // initialize to 0
