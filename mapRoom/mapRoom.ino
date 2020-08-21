@@ -1,19 +1,26 @@
+// Project: mapRoom
+// Created by: Michael Napoli
+// Created on: 8/21/2020
 
-#include <Stepper.h>
+/*
+ * Purpose:
+*/
 
-const int stepsPerRev(2048);
-Stepper EYES(stepsPerRev, 2, 3, 4, 5);
+const int DIR(4);
+const int STEP(5);
 
 const int TRIG(8);
 const int ECHO(9);
 
-bool dir(true);
 int ang(0);  // initialize to 0
 float dist(0);  // initialize to 0
 
 void setup() {
-  EYES.setSpeed(10);
-  
+  // stepper motor pins
+  pinMode(STEP, OUTPUT);
+  pinMode(DIR, OUTPUT);
+
+  // distance sensor pins
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
 
@@ -21,24 +28,25 @@ void setup() {
 }
 
 void loop() {
-  if (dir) {
-    ang += 64;
-    EYES.step(64);
-  }
-  else {
-    ang -= 64;
-    EYES.step(-64);
-  }
+  digitalWrite(DIR, HIGH);
   
-  dist = distance(TRIG, ECHO);
-  Serial.print(dist);
-  Serial.print(", ");
-  Serial.println(ang);
+  for (int i(0); i < 200; ++i) {
+    digitalWrite(STEP, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(STEP, LOW);
+    delayMicroseconds(500);
+  }
 
-  if (ang >= 2048) {
-    dir = false;  // switch directions
+  delay(1000);
+
+  digitalWrite(DIR, LOW);
+  
+  for (int i(0); i < 400; ++i) {
+    digitalWrite(STEP, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(STEP, LOW);
+    delayMicroseconds(500);
   }
-  else if (ang <= 0) {
-    dir = true;  // switch directions
-  }
+
+  delay(1000);
 }
