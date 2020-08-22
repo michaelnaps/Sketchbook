@@ -6,6 +6,14 @@
  * Purpose:
 */
 
+/*
+ * NOTE: Nema-17 wire configuration
+ * 1A - red
+ * 1B - yellow
+ * 2A - grey
+ * 2B - green
+*/
+
 const int DIR(4);
 const int STEP(5);
 
