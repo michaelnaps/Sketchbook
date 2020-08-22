@@ -20,7 +20,7 @@ const int STEP(5);
 const int TRIG(7);
 const int ECHO(8);
 
-int ang(0);  // initialize to 0
+float ang(0);  // initialize to 0
 float dist(0);  // initialize to 0
 
 void setup() {
@@ -36,25 +36,42 @@ void setup() {
 }
 
 void loop() {
-  digitalWrite(DIR, HIGH);
-  
+  ang = 0;
+  digitalWrite(DIR, LOW);  // clockwise
+
+  // one rotation
   for (int i(0); i < 200; ++i) {
+    if (i % 10 != 0) {
+      ang = (i * 1.8);
+      Serial.print(distance(TRIG, ECHO));
+      Serial.print(", ");
+      Serial.println(ang);
+      
+      digitalWrite(STEP, HIGH);
+      delayMicroseconds(500);
+      digitalWrite(STEP, LOW);
+      delayMicroseconds(500);
+    }
+  }
+
+  delay(1000);
+
+  digitalWrite(DIR, HIGH);  // counter-clockwise
+
+  // one rotation
+  for (int i(0); i <= 200; ++i) {
+    if (i % 10 != 0) {
+      ang = 360 - (i * 1.8);
+      Serial.print(distance(TRIG, ECHO));
+      Serial.print(", ");
+      Serial.println(ang);
+    }
+    
     digitalWrite(STEP, HIGH);
     delayMicroseconds(500);
     digitalWrite(STEP, LOW);
     delayMicroseconds(500);
   }
 
-  delay(1000);
-
-  digitalWrite(DIR, LOW);
-  
-  for (int i(0); i < 400; ++i) {
-    digitalWrite(STEP, HIGH);
-    delayMicroseconds(500);
-    digitalWrite(STEP, LOW);
-    delayMicroseconds(500);
-  }
-
-  delay(1000);
+  delay(5000);
 }
