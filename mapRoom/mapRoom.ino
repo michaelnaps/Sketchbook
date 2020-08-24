@@ -3,7 +3,9 @@
 // Created on: 8/21/2020
 
 /*
- * Purpose:
+ * Purpose: Program for a room mapping prototype which utilizes an
+ *  ultrasonic distance sensor and stepper motor to measure the dimensions
+ *  of a given room.
 */
 
 /*
@@ -14,6 +16,9 @@
  * 2B - green
 */
 
+#include "ardu_polarcoordinate.h"
+using namespace napoli;
+
 const int DIR(4);
 const int STEP(5);
 
@@ -22,6 +27,8 @@ const int ECHO(8);
 
 float ang(0);  // initialize to 0
 float dist(0);  // initialize to 0
+
+PolarCoordinate loc('d', 0, 0);
 
 void setup() {
   // stepper motor pins
@@ -33,19 +40,21 @@ void setup() {
   pinMode(ECHO, INPUT);
 
   Serial.begin(9600);
+  delay(8000);  // short pause for setup
 }
 
 void loop() {
-  ang = 0;
+  loc.setTheta('d', 0);
   digitalWrite(DIR, LOW);  // clockwise
 
   // one rotation
-  for (int i(0); i < 200; ++i) {
+  for (int i(0); i < 101; ++i) {
     if (i % 10 != 0) {
-      ang = (i * 1.8);
-      Serial.print(distance(TRIG, ECHO));
+      loc.setTheta('d', (i * 1.8));
+      loc.setRadius(distance(TRIG, ECHO));
+      Serial.print(loc.getTheta());
       Serial.print(", ");
-      Serial.println(ang);
+      Serial.println(loc.getRadius());
       
       digitalWrite(STEP, HIGH);
       delayMicroseconds(500);
@@ -54,24 +63,17 @@ void loop() {
     }
   }
 
-  delay(1000);
+  delay(500);  // short pause
 
   digitalWrite(DIR, HIGH);  // counter-clockwise
 
-  // one rotation
-  for (int i(0); i <= 200; ++i) {
-    if (i % 10 != 0) {
-      ang = 360 - (i * 1.8);
-      Serial.print(distance(TRIG, ECHO));
-      Serial.print(", ");
-      Serial.println(ang);
-    }
-    
+  // one rotation (reset location)
+  for (int i(0); i <= 101; ++i) {    
     digitalWrite(STEP, HIGH);
     delayMicroseconds(500);
     digitalWrite(STEP, LOW);
     delayMicroseconds(500);
   }
 
-  delay(5000);
+  delay(10000);
 }
