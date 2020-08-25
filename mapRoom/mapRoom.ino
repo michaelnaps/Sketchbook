@@ -10,10 +10,10 @@
 
 /*
  * NOTE: Nema-17 wire configuration
- * 1A - red
- * 1B - yellow
- * 2A - grey
- * 2B - green
+ *       1A - red
+ *       1B - yellow
+ *       2A - grey
+ *       2B - green
 */
 
 #include "ardu_polarcoordinate.h"
@@ -24,9 +24,6 @@ const int STEP(5);
 
 const int TRIG(7);
 const int ECHO(8);
-
-float ang(0);  // initialize to 0
-float dist(0);  // initialize to 0
 
 PolarCoordinate loc('d', 0, 0);
 
@@ -45,8 +42,7 @@ void setup() {
 
 void loop() {
   loc.setTheta('d', 0);
-  digitalWrite(DIR, LOW);  // clockwise
-
+  
   // one rotation
   for (int i(0); i < 101; ++i) {
     if (i % 10 != 0) {
@@ -55,11 +51,8 @@ void loop() {
       Serial.print(loc.getTheta());
       Serial.print(", ");
       Serial.println(loc.getRadius());
-      
-      digitalWrite(STEP, HIGH);
-      delayMicroseconds(500);
-      digitalWrite(STEP, LOW);
-      delayMicroseconds(500);
+
+      clockwise(DIR, STEP);
     }
   }
 
@@ -69,10 +62,7 @@ void loop() {
 
   // one rotation (reset location)
   for (int i(0); i <= 101; ++i) {    
-    digitalWrite(STEP, HIGH);
-    delayMicroseconds(500);
-    digitalWrite(STEP, LOW);
-    delayMicroseconds(500);
+    counter_clockwise(DIR, STEP);
   }
 
   delay(10000);
