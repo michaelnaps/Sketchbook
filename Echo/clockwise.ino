@@ -6,9 +6,9 @@
  * Purpose:
 */
 
-void clockwise(const int& dir_step, const int& step_pin)
+void clockwise(const int& dir_pin, const int& step_pin)
 {
-  digitalWrite(DIR, LOW);  // clockwise
+  digitalWrite(dir_pin, LOW);  // clockwise
         
   digitalWrite(step_pin, HIGH);
   delayMicroseconds(500);
