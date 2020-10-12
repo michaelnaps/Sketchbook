@@ -1,6 +1,6 @@
 clc;clear;
 
-data = csvread("MR_data.csv");
+data = csvread("echo_data1.csv");
 m = size(data);
 
 p = polarplot(deg2rad(data(1,1)), data(1,2));
