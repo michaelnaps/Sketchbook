@@ -17,24 +17,24 @@ void setup() {
   pinMode(x, INPUT);
   pinMode(y, INPUT);
   pinMode(sw, INPUT);
-
+  
   Serial.begin(9600);
 }
 
 void loop() {
-  if (digitalRead(L) == LOW)
+  if (digitalRead(L) == HIGH)
     { Serial.println('L'); }
     
-  if (digitalRead(a) == LOW)
+  if (digitalRead(a) == HIGH)
     { Serial.println('a'); }
     
-  if (digitalRead(b) == LOW)
+  if (digitalRead(b) == HIGH)
     { Serial.println('b'); }
     
-  if (digitalRead(x) == LOW)
+  if (digitalRead(x) == HIGH)
     { Serial.println('x'); }
     
-  if (digitalRead(y) == LOW)
+  if (digitalRead(y) == HIGH)
     { Serial.println('y'); }
     
   if (digitalRead(sw) == HIGH)
