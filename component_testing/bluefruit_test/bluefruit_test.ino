@@ -6,7 +6,7 @@
 #include "Adafruit_BluefruitLE_UART.h"
 
 // Initialize BluefruitLE object
-SoftwareSerial mySerial(6, 5);
+SoftwareSerial mySerial(5, 6);
 Adafruit_BluefruitLE_UART btle(mySerial, -1, 3, -1);
 
 void setup()
@@ -14,7 +14,7 @@ void setup()
   Serial.begin(9600);
 
   // establish BluefruitLE connection
-  if(!btle.begin(false, true)) {
+  if(!btle.begin()) {
     Serial.println("Could not initialize BluefruitLE."); 
     while(1);
   }
@@ -26,6 +26,15 @@ void setup()
     while(1);
   }
   else { Serial.println("Factory reset successful."); }
+
+  // Set name of module
+  btle.print("AT+GAPDEVNAME=");
+  btle.println("simple_controller");
+  if(!btle.waitForOK()) {
+    Serial.println("Name of module could not be changed.");
+    while(1);
+  }
+  else { Serial.println("New BluefruitLE Name: simple_controller"); }
 }
 
 void loop()
