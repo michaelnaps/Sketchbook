@@ -2,25 +2,20 @@
 
 // Include Library for Bluefruit
 #include <HardwareSerial.h>
-// #include "Adafruit_BLE.h"
+#include "Adafruit_BLE.h"
 #include "Adafruit_BluefruitLE_UART.h"
 
 // Initialize BluefruitLE object
-Adafruit_BluefruitLE_UART btle(Serial1, -1, 3, -1);
+Adafruit_BluefruitLE_UART btle(Serial, -1);
 
 void setup()
 {
-  Serial1.begin(9600);
-  Serial.begin(9600);
-
   // establish BluefruitLE connection
-  if(!btle.begin(true)) {
+  if(!btle.begin(true, false)) {
     Serial.println("Could not initialize BluefruitLE."); 
     while(1);
   }
-  else { 
-    Serial.println("Initialization successful."); 
-  }
+  else { Serial.println("Initialization successful."); }
 
   // Factory reset BluefruitLE board
   if(!btle.factoryReset()) {
@@ -36,7 +31,7 @@ void setup()
     Serial.println("Name of module could not be changed.");
     while(1);
   }
-  else { Serial.println("New BluefruitLE Name: napoli_simple_controller"); }
+  else { Serial.println("New BluefruitLE Name: Napoli BluefruitLE Controller"); }
 
   btle.verbose(false);
 }

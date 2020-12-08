@@ -123,7 +123,7 @@ bool Adafruit_BluefruitLE_UART::begin(boolean debug, boolean blocking)
     pinMode(_cts_pin, OUTPUT);
     digitalWrite(_cts_pin, HIGH);  // turn off txo
   }
-    
+
   if (_rts_pin > 0) {
     pinMode(_rts_pin, INPUT);
   }
