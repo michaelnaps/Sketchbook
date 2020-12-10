@@ -1,37 +1,43 @@
 // testing of the Adafruit BluefruitLE component
 
-// Include Library for Bluefruit
+// Include Library for BluefruitLE and SoftwareSerial
 #include <HardwareSerial.h>
 #include "Adafruit_BLE.h"
 #include "Adafruit_BluefruitLE_UART.h"
 
 // Initialize BluefruitLE object
-Adafruit_BluefruitLE_UART btle(Serial, -1);
+Adafruit_BluefruitLE_UART btle(Serial, 10, 11, 12);
 
 void setup()
 {
   // establish BluefruitLE connection
   if(!btle.begin(true, false)) {
-    Serial.println("Could not initialize BluefruitLE."); 
+    // Serial.println("Could not initialize BluefruitLE."); 
     while(1);
   }
-  else { Serial.println("Initialization successful."); }
+  else { 
+    // Serial.println("Initialization successful.");
+  }
 
   // Factory reset BluefruitLE board
   if(!btle.factoryReset()) {
-    Serial.println("Could not perform factory reset.");
+    // Serial.println("Could not perform factory reset.");
     while(1);
   }
-  else { Serial.println("Factory reset successful."); }
+  else { 
+    // Serial.println("Factory reset successful.");
+  }
 
   // Set name of module
   btle.print("AT+GAPDEVNAME=");
-  btle.println("simple_controller");
+  btle.println("Napoli BluefruitLE Controller");
   if(!btle.waitForOK()) {
-    Serial.println("Name of module could not be changed.");
+    // Serial.println("Name of module could not be changed.");
     while(1);
   }
-  else { Serial.println("New BluefruitLE Name: Napoli BluefruitLE Controller"); }
+  else { 
+    // Serial.println("New BluefruitLE Name: Napoli BluefruitLE Controller");
+  }
 
   btle.verbose(false);
 }

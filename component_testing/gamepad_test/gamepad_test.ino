@@ -1,8 +1,8 @@
 // gamepad testing
 
 // Joystick pins
-// const int x_js = A0;
-// const int y_js = A1;
+const int x_js = A0;
+const int y_js = A1;
 
 // initialize buttons
 const int L = 12;
@@ -22,8 +22,8 @@ void setup() {
 }
 
 void loop() {
-  // int x_dir = analogRead(x_js) - 500;
-  // int y_dir = analogRead(y_js) - 500;
+  int x_dir = analogRead(x_js) - 500;
+  int y_dir = analogRead(y_js) - 500;
   
   if (digitalRead(L) == HIGH)
     { Serial.println('L'); }
@@ -39,7 +39,7 @@ void loop() {
     
   if (digitalRead(y_b) == HIGH)
     { Serial.println('y'); }
-/*
+
   if (x_dir > 50)
     { Serial.println("+X"); }
 
@@ -51,6 +51,6 @@ void loop() {
 
   if (y_dir < -50)
     { Serial.println("-Y"); }
+    
   delay(100);
-  */
 }
