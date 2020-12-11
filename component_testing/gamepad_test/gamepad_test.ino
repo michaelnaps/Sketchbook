@@ -53,4 +53,6 @@ void loop() {
   if (y_dir < -50)
     { Serial.println("-Y"); }
 */
+
+  delay(100);
 }

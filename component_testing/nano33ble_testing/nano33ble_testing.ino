@@ -7,7 +7,7 @@ void setup() {
   Serial.begin(9600);
   while(!Serial);
 
-  Serial.println("Serial test.");
+  Serial.println("Serial Open.");
 
   if (!BLE.begin()) {
     Serial.println("Nano 33 BLE was not initialized.");
