@@ -6,7 +6,7 @@
 #include "Adafruit_BluefruitLE_UART.h"
 
 // Initialize BluefruitLE object
-Adafruit_BluefruitLE_UART btle(Serial, 10, 11, 12);
+Adafruit_BluefruitLE_UART btle(Serial);
 
 void setup()
 {
