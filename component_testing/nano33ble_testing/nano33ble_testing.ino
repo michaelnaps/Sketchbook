@@ -15,7 +15,7 @@ void setup() {
   }
   else { Serial.println("Nano 33 BLE was initialized successfully."); }
 
-  BLE.setLocalName("napoli_controller");
+  BLE.setDeviceName("napoli_nano33ble");
 }
 
 void loop() {
