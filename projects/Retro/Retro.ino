@@ -3,7 +3,7 @@
 // Created on: 11/11/2020
 // Last modified on: 11/11/2020
 
-#include "Nano33BleHID.h"
+#include <ArduinoBLE.h>
 
 // Button pins (digital)
 const int s = 12;
@@ -16,9 +16,6 @@ const int yb = 8;
 const int xjs = A0;
 const int yjs = A1;
 
-// Gamepad HID variable
-Nano33BleKeyboard retro("Mr. Retro");
-
 void setup() {  
   // built-in LED initialization
   pinMode(LED_BUILTIN, OUTPUT);
@@ -30,20 +27,24 @@ void setup() {
   pinMode(xb, INPUT);
   pinMode(yb, INPUT);
 
-  // initialize Gamepad
-  retro.initialize();
-
-  // Launch event queue that will mange both BLE events and the loop
-  // After this call the main thread will be halted
-  MbedBleHID_RunEventThread();  
+  // initialize Nano 33 BLE
+  if (BLE.begin()) {
+    for (int i(0); i < 1023; ++i) {
+      analogWrite(LED_BUILTIN, i);  // phase on
+      delay(50);
+    }
+    for (int i(1023); i >= 0; --i) {
+      analogWrite(LED_BUILTIN, i);  // phase off
+      delay(50);
+    }
+    analogWrite(LED_BUILTIN, 0);  // turn off
+  }
+  else { analogWrite(LED_BUILTIN, 500); }
 }
 
-void loop() {
-  // Built-in LED will be off until connected
-  digitalWrite(LED_BUILTIN, LOW);
-  
+void loop() {  
   // wait for Nano 33 BLE to connect
-  while (!retro.connected());
+  while (!BLE.connected());
 
   // when connected, turn on built in LED
   digitalWrite(LED_BUILTIN, HIGH);
