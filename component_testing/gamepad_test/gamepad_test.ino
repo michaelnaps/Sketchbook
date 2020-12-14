@@ -1,8 +1,11 @@
 // gamepad testing
 
+// buffer for keyboard memory
+uint8_t buf[8] = {0};
+
 // Joystick pins
-// const int x_js = A0;
-// const int y_js = A1;
+const int x_js = A0;
+const int y_js = A1;
 
 // initialize buttons
 const int L = 12;
@@ -22,37 +25,15 @@ void setup() {
 }
 
 void loop() {
-  // int x_dir = analogRead(x_js) - 500;
-  // int y_dir = analogRead(y_js) - 500;
-  
-  if (digitalRead(L) == HIGH)
-    { Serial.println('L'); }
-    
-  if (digitalRead(a) == HIGH)
-    { Serial.println('a'); }
-    
-  if (digitalRead(b) == HIGH)
-    { Serial.println('b'); }
-    
-  if (digitalRead(x_b) == HIGH)
-    { Serial.println('x'); }
-    
-  if (digitalRead(y_b) == HIGH)
-    { Serial.println('y'); }
+  // int x_dir = analogRead(x_js);
+  // int y_dir = analogRead(y_js);
 
-/*
-  if (x_dir > 50)
-    { Serial.println("+X"); }
+  keyCheck_dig(L, 15);
+  keyCheck_dig(a, 4);
+  keyCheck_dig(b, 5);
+  keyCheck_dig(x_b, 27);
+  keyCheck_dig(y_b, 28);
 
-  if (x_dir < -50)
-    { Serial.println("-X"); }
-
-  if (y_dir > 50)
-    { Serial.println("+Y"); }
-
-  if (y_dir < -50)
-    { Serial.println("-Y"); }
-*/
-
-  delay(100);
+  keyCheck_an(x_js, 94, 92);
+  keyCheck_an(y_js, 96, 90);
 }

@@ -1,11 +1,11 @@
 // Testing joystick inputs to microcontroller
 
 // SW pin
-int sw_pin = 7;
+const int sw_pin = 7;
 // X Direction pin (analog)
-int x_pin = A0;
+const int x_pin = A0;
 // Y direction pin (analog)
-int y_pin = A1;
+const int y_pin = A1;
 
 
 void setup() {
@@ -14,20 +14,22 @@ void setup() {
 }
 
 void loop() {
-  int x_pos = analogRead(x_pin) - 500;
-  int y_pos = analogRead(y_pin) - 500;
+  int x_pos = analogRead(x_pin);
+  int y_pos = analogRead(y_pin);
   bool sw = digitalRead(sw_pin);
 
-  if (x_pos > 50)
+  if (x_pos > 600)
     { Serial.println("Up"); }
-  else if (x_pos < -50)
+  else if (x_pos < 400)
     { Serial.println("Down"); }
     
-    
-  if (y_pos > 50)
+  if (y_pos > 600)
     { Serial.println("Right"); }
-  else if (y_pos < -50)
+  else if (y_pos < 400)
     { Serial.println("Left"); }
+
+  if (sw == HIGH)
+    { Serial.println("Switch"); }
 
   delay(100);
 }

@@ -4,6 +4,7 @@
 // Last modified on: 11/11/2020
 
 #include <ArduinoBLE.h>
+#include "HID_Buttons.h"
 
 // Button pins (digital)
 const int s = 12;
@@ -13,8 +14,12 @@ const int xb = 9;
 const int yb = 8;
 
 // Joystick pins (analog)
+const int sw = 7;
 const int xjs = A0;
 const int yjs = A1;
+
+// input buttons and joystick into HID variable
+JoystickButton JS;
 
 void setup() {  
   // built-in LED initialization
@@ -27,19 +32,21 @@ void setup() {
   pinMode(xb, INPUT);
   pinMode(yb, INPUT);
 
-  // initialize Nano 33 BLE
+  // initialize Nano 33 BLE - quick blink if successful
   if (BLE.begin()) {
-    for (int i(0); i < 1023; ++i) {
+    for (int i(0); i < 1023; i += 100) {
       analogWrite(LED_BUILTIN, i);  // phase on
       delay(50);
     }
-    for (int i(1023); i >= 0; --i) {
+    for (int i(1023); i >= 0; i -= 100) {
       analogWrite(LED_BUILTIN, i);  // phase off
       delay(50);
     }
     analogWrite(LED_BUILTIN, 0);  // turn off
   }
   else { analogWrite(LED_BUILTIN, 500); }
+
+  while(1);  // pause until other tests
 }
 
 void loop() {  
@@ -49,5 +56,5 @@ void loop() {
   // when connected, turn on built in LED
   digitalWrite(LED_BUILTIN, HIGH);
 
-  // Read button inputs
+  // Read button inputs  
 }

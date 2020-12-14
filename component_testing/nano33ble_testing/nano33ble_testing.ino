@@ -2,6 +2,12 @@
 
 #include <ArduinoBLE.h>
 
+// uuid found at https://bluetooth.com
+BLEService hid("00001812-0000-1000-8000-00805f9b34fb");
+
+// intialize central BLE device variable
+BLEDevice cDevice;
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -15,10 +21,27 @@ void setup() {
   }
   else { Serial.println("Nano 33 BLE was initialized successfully."); }
 
-  BLE.setDeviceName("napoli_nano33ble");
+  // set name of device
+  BLE.setLocalName("NapoliBLE");
+  BLE.setDeviceName("NapoliBLE");
+
+  // set appearance using general ID code (gamepad)
+  BLE.setAppearance(964);
+
+  // set service and advertise
+  BLE.addService(hid);
+  BLE.setAdvertisedService(hid);
+
+  // start advertising to other devices
+  BLE.advertise();
+
+  while(!BLE.connected());
+  Serial.print("Nano 33 BLE is connected.");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // if BLE is disconnected, advertise and loop
+  while (!BLE.connected()) 
+    { BLE.advertise(); }
 
 }
