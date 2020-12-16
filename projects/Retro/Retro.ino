@@ -15,7 +15,7 @@
 
 // BLE services and characteristics
 const char id[] = "00002A4A-0000-1000-8000-00805f9b34fb";
-BLECharCharacteristic hid_cp(id, BLENotify);
+BLEByteCharacteristic hid_cp(id, BLENotify);
 BLEService hid("00001812-0000-1000-8000-00805f9b34fb");
 BLEDevice cDevice;  // variable for central device information
 
