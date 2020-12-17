@@ -7,12 +7,14 @@
 void keyCheck_an(const int& pin, const int& high, const int& low)
 {
   if (analogRead(pin) > 600) {
-    // buf[2] = high;
-    hid_cp.writeValue((byte)high);  // write to BLE characteristic port
+    buf = (byte)high;
+    hid_cp.writeValue(buf);  // write to BLE characteristic port
+    buf = 0;
   }
   else if (analogRead(pin) < 400) {
-    // buf[2] = low;
-    hid_cp.writeValue((byte)low);
+    buf = (byte)low;
+    hid_cp.writeValue(buf);
+    buf = 0;
   }
   
   return;  // return nothing

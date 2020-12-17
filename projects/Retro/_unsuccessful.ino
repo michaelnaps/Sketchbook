@@ -1,7 +1,8 @@
 // Function: _unsuccessful()
 
-// Purpose: if called, stops program
-// blinks the built in LED to tell user
+// Purpose: if called, stops program blinks
+//   the built in LED to tell user operation was
+//   not completed. Stops program.
 void _unsuccessful() 
 {
   // infinite loop

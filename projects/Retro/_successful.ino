@@ -1,7 +1,7 @@
 // Function: _successful()
 
 // Purpose: indicates success at certain points
-// in program using the builtin LED
+//   in program using the builtin LED
 void _successful() 
 {
   // fade in and out to indicate success

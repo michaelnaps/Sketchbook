@@ -13,10 +13,11 @@
 // Libaray for BLE services and characteristics
 #include <ArduinoBLE.h>
 
-// BLE services and characteristics
-const char id[] = "00002A4A-0000-1000-8000-00805f9b34fb";
-BLEByteCharacteristic hid_cp(id, BLENotify);
-BLEService hid("00001812-0000-1000-8000-00805f9b34fb");
+// BLE descriptor, characteristics and services
+byte buf = 0;  // initialize to 0
+BLEDescriptor hid_p("0011", "HIDP");
+BLEByteCharacteristic hid_cp("2A4A", BLENotify);
+BLEService hid("11240000-0000-1000-8000-00805f9b34fb");
 BLEDevice cDevice;  // variable for central device information
 
 // Button pins (digital)
@@ -53,6 +54,7 @@ void setup() {
   BLE.setAppearance(964);
 
   // set service and advertise as such
+  hid_cp.addDescriptor(hid_p);  // descriptor for service
   hid.addCharacteristic(hid_cp);
   BLE.addService(hid);
   BLE.setAdvertisedService(hid);
@@ -62,8 +64,8 @@ void setup() {
 
   // wait for connection then stop advertising
   while(!BLE.connected());
-  BLE.stopAdvertise();
   _successful();  // show successful connection
+  BLE.stopAdvertise();
 }
 
 void loop() {  
@@ -72,13 +74,13 @@ void loop() {
   while (!BLE.connected()) { BLE.advertise(); }
 
   // check buttons and send data if applicable
-  keyCheck_dig(s, 's');
-  keyCheck_dig(a, 'a');
-  keyCheck_dig(b, 'b');
-  keyCheck_dig(xb, 'x');
-  keyCheck_dig(yb, 'y');
+  keyCheck_dig(s, 83);
+  keyCheck_dig(a, 65);
+  keyCheck_dig(b, 66);
+  keyCheck_dig(xb, 88);
+  keyCheck_dig(yb, 89);
 
   // check Joystick axis and send data if applicable
-  keyCheck_an(xjs, 94, 92);
-  keyCheck_an(yjs, 96, 90);
+  keyCheck_an(xjs, 100, 102);
+  keyCheck_an(yjs, 98, 104);
 }
