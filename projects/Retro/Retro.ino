@@ -19,10 +19,6 @@ BLEByteCharacteristic hid_cp(id, BLENotify);
 BLEService hid("00001812-0000-1000-8000-00805f9b34fb");
 BLEDevice cDevice;  // variable for central device information
 
-// function initializations (see definitions)
-void _successful();
-void un_successful();
-
 // Button pins (digital)
 const int s = 12;
 const int a = 11;
@@ -67,7 +63,7 @@ void setup() {
   // wait for connection then stop advertising
   while(!BLE.connected());
   BLE.stopAdvertise();
-  _successful();
+  _successful();  // show successful connection
 }
 
 void loop() {  
