@@ -21,15 +21,10 @@ BLEService hid("11240000-0000-1000-8000-00805f9b34fb");
 BLEDevice cDevice;  // variable for central device information
 
 // Button pins (digital)
-const int s = 12;
-const int a = 11;
-const int b = 10;
-const int xb = 9;
-const int yb = 8;
+const int s(12), a(11), b(10), xb(9), yb(8);
 
 // Joystick pins (analog)
-const int xjs = A0;
-const int yjs = A1;
+const int xjs(A0), yjs(A1);
 
 void setup() {  
   // built-in LED initialization
