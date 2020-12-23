@@ -6,7 +6,7 @@
 void _unsuccessful() 
 {
   // infinite loop
-  while(1) {
+  for (int i(0); i < 3; ++i) {
     analogWrite(LED_BUILTIN, 800);
     delay(500);
     analogWrite(LED_BUILTIN, 0);
