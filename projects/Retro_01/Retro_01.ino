@@ -13,9 +13,19 @@
 // Libaray for BLE services and characteristics
 #include <ArduinoBLE.h>
 
-// BLE descriptor, characteristics and services
-byte buf = 0;  // initialize to 0
-BLEByteCharacteristic hid_cp("0x2A4C", BLENotify);
+// connected and disconnected function initializations for event handler
+void ble_connected(BLEDevice central);
+void ble_disconnected(BLEDevice central);
+
+// buffer variable for sending value to central device
+byte buf(0);  // initialize to 0
+
+// BLE characteristic(s)
+BLEByteCharacteristic hid_cp("00002A4C-0000-1000-8000-00805F9B34FB", BLEWriteWithoutResponse);
+BLEByteCharacteristic hid_report("00002A4D-0000-1000-8000-00805F9B34FB", BLERead | BLENotify);
+
+
+// BLE service(s)
 BLEService hid("00001812-0000-1000-8000-00805F9B34FB");
 
 // Button pins (digital)
@@ -56,11 +66,17 @@ void setup() {
 
   // set service and advertise as such
   hid.addCharacteristic(hid_cp);
+  hid.addCharacteristic(hid_report);
   BLE.addService(hid);
 
   // set appearance to Gamepad
   BLE.setAdvertisedService(hid);
-  BLE.setAppearance(0x3C4);
+  BLE.setAppearance(964);
+  BLE.setConnectable(true);
+
+  // show local address (for testing)
+  Serial.print("Local address is: ");
+  Serial.println(BLE.address());
 
   // advertise to other devices
   BLE.advertise();
@@ -73,17 +89,18 @@ void setup() {
 void loop() {  
   // if Retro is disconnected, stop and wait
   while (!BLE.connected()) { BLE.advertise(); }
+  BLE.stopAdvertise();
 
   // check buttons and send data if applicable
-  keyCheck_dig(s, 83);
-  keyCheck_dig(a, 65);
-  keyCheck_dig(b, 66);
-  keyCheck_dig(xb, 88);
-  keyCheck_dig(yb, 89);
+  keyCheck_dig(s, 32);
+  keyCheck_dig(a, 31);
+  keyCheck_dig(b, 50);
+  keyCheck_dig(xb, 46);
+  keyCheck_dig(yb, 22);
 
   // check Joystick axis and send data if applicable
-  keyCheck_an(xjs, 100, 102);
-  keyCheck_an(yjs, 98, 104);
+  keyCheck_an(xjs, 92, 102);
+  keyCheck_an(yjs, 98, 96);
 }
 
 // Event Handler Function definitions

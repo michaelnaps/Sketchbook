@@ -5,7 +5,6 @@
 //   not completed. Stops program.
 void _unsuccessful() 
 {
-  // infinite loop
   for (int i(0); i < 3; ++i) {
     analogWrite(LED_BUILTIN, 800);
     delay(500);

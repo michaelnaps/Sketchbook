@@ -8,14 +8,17 @@ void keyCheck_an(const int& pin, const int& high, const int& low)
 {
   if (analogRead(pin) > 600) {
     buf = (byte)high;
-    hid_cp.writeValue(buf);  // write to BLE characteristic port
+    hid_report.writeValue(buf);  // write to BLE characteristic port
     buf = 0;
   }
   else if (analogRead(pin) < 400) {
     buf = (byte)low;
-    hid_cp.writeValue(buf);
+    hid_report.writeValue(buf);
     buf = 0;
   }
+
+  // update board for key release
+  keyRelease();
   
   return;  // return nothing
 }

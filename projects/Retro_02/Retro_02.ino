@@ -10,10 +10,11 @@
  *  can utlize the ArduinoBLE.h library.
 */
 
+#include <ArduinoBLE.h>
 #include "Nano33BleHID.h"
 
 // create HID variable
-Nano33BleGamepad retro("Retro");
+Nano33BleGamepad retro("Napoli-Retro");
 
 void setup() {
   // initialize gamepad functionality and start event thread
@@ -22,6 +23,12 @@ void setup() {
 }
 
 void loop() {
-  auto hid = retro.hid();
+  auto *hid = retro.hid();
 
+  // Update internal values.
+  float theta = PI * (random(255) / 255.0);
+  hid->motion(cos(theta), sin(theta));
+
+  // Send them !
+  hid->SendReport();
 }

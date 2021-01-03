@@ -7,9 +7,12 @@ void keyCheck_dig(const int& pin, const int& id)
 {
   if (digitalRead(pin)) {
     buf = (byte)id;
-    hid_cp.writeValue(buf);  // write to BLE characteristic value
+    hid_report.writeValue(buf);  // write to BLE characteristic value
     buf = 0;
   }
+
+  // update board for key release
+  keyRelease();
   
   return;  // return nothing
 }
